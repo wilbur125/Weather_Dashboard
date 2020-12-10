@@ -1,6 +1,17 @@
+ const cityInput = document.getElementById('city-input');
+ const searchButton = document.getElementById('search-city');
+ const pastCity = document.getElementById('past-city');
+ const searchResults = document.getElementById('search-results');
+ const todayTemp = document.getElementById('today-temp');
+ const todayHumidity = document.getElementById('today-humidity');
+ const todayWindspeed = document.getElementById('today-windspeed');
+ const todayUVI = document.getElementById('today-uvi');
 
+let city;
 
-function displayWeatherResults() {
+function displayCurrentWeather() {
+
+    let city = cityInput.value.trim();
 
     //Geocode location using Google Places API
     let placeQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "&key=AIzaSyDCYsLhQIm_iTzg5ZMsg8sR329hEsFE2oE";
@@ -24,53 +35,35 @@ function displayWeatherResults() {
         $.ajax({
             url: weatherQueryURL,
             method: "GET"
-        }).then(function(response) {
+        }).then(function(weatherResponse) {
+
+            console.log(weatherResponse);
             
-            let today = new Date();
-            let mm = today.getMonth()+1;
-            let dd = today.getDate();
-            let yyyy = today.getFullYear(); 
+            const d = new Date();
+            const today = d.toDateString();
 
-            //creates div to hold the current weather conditions
-            let searchWeatherDiv = $("<div class='search-weather'>");
+            searchResults.innerHTML = city + ' ' + today;
+            todayTemp.innerHTML = "Temp: " + weatherResponse.current.temp + " F";
+            todayHumidity.innerHTML = "Humidity: " + weatherResponse.current.humidity;
+            todayWindspeed.innerHTML = "Wind Speed: " + weatherResponse.current.wind_speed + " mph";
+            todayUVI.innerHTML = "UVI: " + weatherResponse.current.uvi;
 
-            //creating an element to have city name and today's date displayed
-            let cityHeading = $("<h4>").text(city + " " + mm + "/" + dd + "/" + yyyy);
-            searchWeatherDiv.append(cityHeading);
 
-            //creating an element that holds and displays the temperature
-            let temperature = response.current.temp;
-            console.log(temperature);
-            let pOne = $("<p>").text("Temperature: " + temperature + " F");
-            searchWeatherDiv.append(pOne);
-
-            //creating an element that holds and displays the humidity
-            let humidity = response.current.humidity;
-            let pTwo = $("<p>").text("Humidity: " + humidity + "%");
-            searchWeatherDiv.append(pTwo);
-
-            //creating an element that holds and displays the temperature
-            let windSpeed = response.current.wind_speed;
-            let pThree = $("<p>").text("Wind Speed: " + windSpeed + " MPH");
-            searchWeatherDiv.append(pThree);
-
-            //creating an element that holds and displays the temperature
-            let uvIndex = response.current.uvi;
-            let pFour = $("<p>").text("UV Index: ");
-            searchWeatherDiv.append(pFour);
-            if(uvIndex < 3) {
-                let uvSpan = $("<span class='uv-favorable").text(uvIndex);
-                searchWeatherDiv.append(uvSpan);
-            } else if (uvIndex > 5) {
-                let uvSpan = $("<span class='uv-severe").text(uvIndex);
-                searchWeatherDiv.append(uvSpan);
-            } else {
-                let uvSpan = $("<span class='uv-moderate").text(uvIndex);
-                searchWeatherDiv.append(uvSpan);
-            };
         })
-      });
+    });
 }
-        
 
+
+
+function pastCities() {
+    const button = document.createElement('button');
+    button.innerText = cityInput.value.trim();
+    button.classList.add('list-group-item');
+    button.onclick = function() {displayCurrentWeather()};
+    pastCity.appendChild(button);
+}
+
+        
+searchButton.addEventListener('click', displayCurrentWeather);
+searchButton.addEventListener('click', pastCities);
 

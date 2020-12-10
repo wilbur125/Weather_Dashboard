@@ -17,15 +17,10 @@
             <div class="col-sm-3">
                 <div>
                     <h5>Search for a city:</h5>
-                    <input type="text" id="city-input">
+                    <input type="text" id="city-input" value="">
                     <input type="submit" id="search-city" value="Search">
                     <div id="past-search">
-                        <ul class="list-group">
-                            <li class="list-group-item">Past City 5</li>
-                            <li class="list-group-item">Past City 4</li>
-                            <li class="list-group-item">Past City 3</li>
-                            <li class="list-group-item">Past City 2</li>
-                            <li class="list-group-item">Past City 1</li>
+                        <ul class="list-group" id="past-city">
                         </ul>
                     </div>
                 </div>
@@ -34,14 +29,14 @@
                 <div class="card">
                     <div class="card-body">
                         <div>
-                            <span class="card-title">Search Results</span>
+                            <span class="card-title" id="search-results">Search Results</span>
                             <span>image</span>
                         </div>
                         <div>
-                            <p>Temp</p>
-                            <p>Humidity</p>
-                            <p>Windspeed</p>
-                            <p>UVI</p>
+                            <p id="today-temp"></p>
+                            <p id="today-humidity"></p>
+                            <p id="today-windspeed"></p>
+                            <p id="today-uvi"></p>
                         </div>
                     </div>
                 </div>
