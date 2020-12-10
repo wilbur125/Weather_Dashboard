@@ -53,8 +53,28 @@ function displayCurrentWeather() {
             todayHumidity.innerHTML = "Humidity: " + weatherResponse.current.humidity;
             todayWindspeed.innerHTML = "Wind Speed: " + weatherResponse.current.wind_speed + " mph";
             todayUVI.innerHTML = "UVI: " + weatherResponse.current.uvi;
+
+            let intUVI = parseInt(weatherResponse.current.uvi);
+            setStatusClass(todayUVI, intUVI);
         })
     });
+}
+
+function setStatusClass(element, intUVI) {
+    clearStatusClass(element) 
+        if (intUVI < 3) {
+            element.classList.add('favorable');
+         } else if (intUVI > 5) {
+            element.classList.add('severe');
+        } else {
+            element.classList.add('moderate');
+        };
+}
+
+function clearStatusClass(element) {
+    element.classList.remove('favorable');
+    element.classList.remove('moderate');
+    element.classList.remove('severe');
 }
 
 function fiveDayForecast() {
@@ -146,6 +166,11 @@ function fiveDayForecast() {
     })
 }
 
+function clearFiveDay() {
+    for (c = 0; c < 5; c++) {
+        fiveDayRow.removeChild(fiveDayRow.childNodes[0]);
+    }
+}
 
 
 function pastCities() {
@@ -156,7 +181,8 @@ function pastCities() {
     pastCity.appendChild(button);
 }
 
-        
+searchButton.addEventListener('click', clearFiveDay);        
 searchButton.addEventListener('click', displayCurrentWeather);
 searchButton.addEventListener('click', fiveDayForecast);
 searchButton.addEventListener('click', pastCities);
+
