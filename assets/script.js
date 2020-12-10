@@ -123,7 +123,7 @@ function fiveDayForecast() {
             fiveCard.appendChild(fiveCardBody);
 
             const fiveHeading = document.createElement('h7');
-            fiveHeading.innerText = fiveDayResults[i].date;
+            fiveHeading.innerText = fiveDayResults[i].date.slice(5,7) + "/" + fiveDayResults[i].date.slice(8,10) + "/" + fiveDayResults[i].date.slice(0,4);
             fiveCardBody.appendChild(fiveHeading);
             
             const fiveIcon = document.createElement('img');
@@ -136,11 +136,11 @@ function fiveDayForecast() {
             fiveCardBody.appendChild(fiveIcon);
             
             const fiveTemp = document.createElement('div');
-            fiveTemp.innerText = fiveDayResults[i].temp;
+            fiveTemp.innerText = "Temp: " + fiveDayResults[i].temp + " F";
             fiveCardBody.appendChild(fiveTemp);
             
             const fiveHumidity = document.createElement('div');
-            fiveHumidity.innerText = fiveDayResults[i].humidity;
+            fiveHumidity.innerText = "Humidity: " + fiveDayResults[i].humidity;
             fiveCardBody.appendChild(fiveHumidity);
         };
     })
@@ -158,6 +158,5 @@ function pastCities() {
 
         
 searchButton.addEventListener('click', displayCurrentWeather);
-
 searchButton.addEventListener('click', fiveDayForecast);
 searchButton.addEventListener('click', pastCities);
