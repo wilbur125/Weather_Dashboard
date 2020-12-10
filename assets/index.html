@@ -17,7 +17,7 @@
             <div class="col-sm-3">
                 <div>
                     <h5>Search for a city:</h5>
-                    <input type="text" id="city-input" value="">
+                    <input type="text" id="city-input">
                     <input type="submit" id="search-city" value="Search">
                     <div id="past-search">
                         <ul class="list-group" id="past-city">
@@ -30,7 +30,9 @@
                     <div class="card-body">
                         <div>
                             <span class="card-title" id="search-results">Search Results</span>
-                            <span>image</span>
+                            <span id="today-emoji">
+                                <img id="today-icon" src="" alt="">
+                            </span>
                         </div>
                         <div>
                             <p id="today-temp"></p>

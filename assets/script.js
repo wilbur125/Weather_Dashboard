@@ -42,15 +42,23 @@ function displayCurrentWeather() {
             const d = new Date();
             const today = d.toDateString();
 
+            const todayIconSrc = "http://openweathermap.org/img/wn/" + weatherResponse.current.weather[0].icon + "@2x.png";
+            const todayIconAlt = weatherResponse.current.weather[0].main;
+
             searchResults.innerHTML = city + ' ' + today;
+            $("#today-icon").attr("src", todayIconSrc);
+            $("#today-icon").attr("alt", todayIconAlt);
             todayTemp.innerHTML = "Temp: " + weatherResponse.current.temp + " F";
             todayHumidity.innerHTML = "Humidity: " + weatherResponse.current.humidity;
             todayWindspeed.innerHTML = "Wind Speed: " + weatherResponse.current.wind_speed + " mph";
             todayUVI.innerHTML = "UVI: " + weatherResponse.current.uvi;
-
-
         })
     });
+}
+
+function fiveDayForecast() {
+    //ajax for 5 day forcast
+    //for each to create a card and display data for city input
 }
 
 
