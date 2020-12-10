@@ -55,26 +55,21 @@ function displayCurrentWeather() {
             todayUVI.innerHTML = "UVI: " + weatherResponse.current.uvi;
 
             let intUVI = parseInt(weatherResponse.current.uvi);
-            setStatusClass(todayUVI, intUVI);
+            if (intUVI < 3) {
+                todayUVI.classList.add('favorable');
+             } else if (intUVI > 5) {
+                todayUVI.classList.add('severe');
+            } else {
+                todayUVI.classList.add('moderate');
+            };
         })
     });
 }
 
-function setStatusClass(element, intUVI) {
-    clearStatusClass(element) 
-        if (intUVI < 3) {
-            element.classList.add('favorable');
-         } else if (intUVI > 5) {
-            element.classList.add('severe');
-        } else {
-            element.classList.add('moderate');
-        };
-}
-
-function clearStatusClass(element) {
-    element.classList.remove('favorable');
-    element.classList.remove('moderate');
-    element.classList.remove('severe');
+function clearStatusClass() {
+    todayUVI.classList.remove('favorable');
+    todayUVI.classList.remove('moderate');
+    todayUVI.classList.remove('severe');
 }
 
 function fiveDayForecast() {
@@ -181,6 +176,7 @@ function pastCities() {
     pastCity.appendChild(button);
 }
 
+searchButton.addEventListener('click', clearStatusClass);
 searchButton.addEventListener('click', clearFiveDay);        
 searchButton.addEventListener('click', displayCurrentWeather);
 searchButton.addEventListener('click', fiveDayForecast);

@@ -1,17 +1,11 @@
-:root {
-    --hue-favorable: 120;
-    --hue-moderate: 60;
-    --hue-severe: 0;
-}
-
 .favorable {
-    --hue: var(--hue-favorable);
+    background-color: green;
 }
 
 .moderate {
-    --hue: var(--hue-moderate);
+    background-color: yellow;
 }
 
 .severe {
-    --hue: var(--hue-severe);
+    background-color: red;
 }
