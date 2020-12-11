@@ -10,7 +10,7 @@
 
 let city;
 
-localStorage.getItem(pastCity);
+
 
 function displayCurrentWeather() {
     let city = cityInput.value.trim();
@@ -57,6 +57,8 @@ function displayCurrentWeather() {
             } else {
                 todayUVI.classList.add('moderate');
             };
+            pastData.push(city);
+            window.localStorage.setItem("pastData", JSON.stringify(pastData));
         })
     });
 }
@@ -167,9 +169,9 @@ function pastCities() {
     button.setAttributeNode(att);
     button.classList.add('list-group-item');
     pastCity.appendChild(button);
-    localStorage.setItem("pastCity", JSON.stringify(pastCity));
 }
 
+let pastData = JSON.parse(window.localStorage.getItem("pastData"));
 
 searchButton.addEventListener('click', clearStatusClass);
 searchButton.addEventListener('click', clearFiveDay);        
