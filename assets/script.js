@@ -10,9 +10,11 @@
 
 let city;
 
-function displayCurrentWeather() {
+localStorage.getItem(pastCity);
 
+function displayCurrentWeather() {
     let city = cityInput.value.trim();
+
 
     //Geocode location using Google Places API
     let placeQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "&key=AIzaSyDCYsLhQIm_iTzg5ZMsg8sR329hEsFE2oE";
@@ -21,15 +23,10 @@ function displayCurrentWeather() {
         url: placeQueryURL,
         method: "GET"
       }).then(function(response) {
-    
-        console.log(response);
 
         //variable to store the lat and lon of the searched city
         let lat = response.results[0].geometry.location.lat;
         let lng = response.results[0].geometry.location.lng;
-
-        console.log(lat);
-        console.log(lng);
 
         let weatherQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lng + "&exclude=minutely,hourly&units=imperial&lang=en&appid=0a0e18cfc10038e9c1b25028eac7bb5c"; 
 
@@ -37,9 +34,7 @@ function displayCurrentWeather() {
             url: weatherQueryURL,
             method: "GET"
         }).then(function(weatherResponse) {
-
-            console.log(weatherResponse);
-            
+          
             const d = new Date();
             const today = d.toDateString();
 
@@ -81,8 +76,6 @@ function fiveDayForecast() {
         url: fiveDayQuery,
         method: "GET"
     }).then(function(weatherFive) {
-        console.log("five",weatherFive);
-
         //created new array of objects to store api data for 5 day forcast at noon
         let fiveDayResults = [
             {
@@ -121,8 +114,6 @@ function fiveDayForecast() {
                 humidity: weatherFive.list[39].main.humidity  
             }
         ];
-
-        console.log('wut', fiveDayResults);
 
         for (i = 0; i < fiveDayResults.length; i++) {
             const fiveCol = document.createElement('div');
@@ -170,11 +161,15 @@ function clearFiveDay() {
 
 function pastCities() {
     const button = document.createElement('button');
+    const att = document.createAttribute('id');
     button.innerText = cityInput.value.trim();
+    att.value = button.innerText;
+    button.setAttributeNode(att);
     button.classList.add('list-group-item');
-    button.onclick = function() {displayCurrentWeather()};
     pastCity.appendChild(button);
+    localStorage.setItem("pastCity", JSON.stringify(pastCity));
 }
+
 
 searchButton.addEventListener('click', clearStatusClass);
 searchButton.addEventListener('click', clearFiveDay);        
